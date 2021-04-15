@@ -23,7 +23,7 @@ const textureLoader = new THREE.TextureLoader()
 
 const matCapTexture = textureLoader.load('/textures/matcaps/3.png')
 const matCapMaterial = new THREE.MeshMatcapMaterial( {matcap: matCapTexture})
-console.log(matCapMaterial)
+
 /**
  * Fonts
  */
@@ -128,14 +128,16 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
 const clock = new THREE.Clock()
 
+
+
 const tick = () =>
 {
     const elapsedTime = clock.getElapsedTime()
-    const rotationSpeed = elapsedTime * 0.5
-
-    donutArray.forEach(donut => {
-        donut.rotation.z = elapsedTime
-    })
+    
+    for (let index = 0; index < donutArray.length; index++) {
+        donutArray[index].rotateX(.001)
+        donutArray[index].rotateY(.001)
+    }
 
     // Update controls
     controls.update()
