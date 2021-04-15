@@ -58,6 +58,23 @@ fontLoader.load(
  * Object
  */
 
+const donutGeometry = new THREE.TorusGeometry(1,.5,10,10)
+const donutArray = []
+
+for (let index = 0; index <300; index++) {
+    const donut = new THREE.Mesh(donutGeometry, matCapMaterial)
+
+    donut.position.x = (Math.random() - 0.5) * 100
+    donut.position.y = (Math.random() - 0.5) * 100
+    donut.position.z = (Math.random() - 0.5) * 100
+
+    donut.rotation.x = (Math.random() * Math.PI)
+    donut.rotation.y = (Math.random() * Math.PI)
+    
+    donutArray.push(donut)
+    scene.add(donut)
+}
+
 
 /**
  * Sizes
@@ -108,11 +125,17 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 /**
  * Animate
  */
+
 const clock = new THREE.Clock()
 
 const tick = () =>
 {
     const elapsedTime = clock.getElapsedTime()
+    const rotationSpeed = elapsedTime * 0.5
+
+    donutArray.forEach(donut => {
+        donut.rotation.z = elapsedTime
+    })
 
     // Update controls
     controls.update()
